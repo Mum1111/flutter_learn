@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learn/pages/bmi.dart';
 import 'package:flutter_learn/pages/cabinet.dart';
 import 'package:flutter_learn/pages/dicePage.dart';
 import 'package:flutter_learn/pages/quizz.dart';
@@ -18,8 +19,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       initialRoute: "/",
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+      theme: ThemeData.dark().copyWith(
+        primaryColor: const Color(0x0ff0ae21),
+        scaffoldBackgroundColor: const Color(0x0ff0ae21),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
       routes: {
@@ -28,6 +31,7 @@ class MyApp extends StatelessWidget {
         "dice": (context) => const DicePage(),
         "xylophone": (context) => const Xylophone(),
         "quizz": (context) => const Quizzer(),
+        "bmi": (context) => const Bmi(),
         '/': (context) => const MyHomePage(title: "flutter")
       },
     );
@@ -56,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
       body: Center(
@@ -95,7 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.pushNamed(context, 'cabinet');
                 },
-                child: const Text("陈列馆"))
+                child: const Text("陈列馆")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'bmi');
+                },
+                child: const Text("bmi计算器"))
           ],
         ),
       ),
