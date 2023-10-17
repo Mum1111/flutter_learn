@@ -17,6 +17,8 @@ class Bmi extends StatefulWidget {
 class _BmiState extends State<Bmi> {
   Gender activeGender = Gender.male;
   int height = 180;
+  int weight = 60;
+  int age = 18;
 
   @override
   Widget build(BuildContext context) {
@@ -114,15 +116,83 @@ class _BmiState extends State<Bmi> {
                     child: ReusableCard(
                         onPress: () {},
                         colour: activeCardColour,
-                        cardChild: Container(
-                          child: Text('123'),
+                        cardChild: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'WEIGHT',
+                              style: labelTextStyle,
+                            ),
+                            Text(
+                              weight.toString(),
+                              style: numberTextStyle,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                RoundIconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      weight--;
+                                    });
+                                  },
+                                  icon: FontAwesomeIcons.minus,
+                                ),
+                                const SizedBox(
+                                  width: 10.0,
+                                ),
+                                RoundIconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      weight++;
+                                    });
+                                  },
+                                  icon: FontAwesomeIcons.plus,
+                                ),
+                              ],
+                            )
+                          ],
                         ))),
                 Expanded(
                     child: ReusableCard(
                   onPress: () {},
                   colour: activeCardColour,
-                  cardChild: Container(
-                    child: Text('123'),
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'AGE',
+                        style: labelTextStyle,
+                      ),
+                      Text(
+                        age.toString(),
+                        style: numberTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RoundIconButton(
+                            onPressed: () {
+                              setState(() {
+                                age--;
+                              });
+                            },
+                            icon: FontAwesomeIcons.minus,
+                          ),
+                          const SizedBox(
+                            width: 10.0,
+                          ),
+                          RoundIconButton(
+                            onPressed: () {
+                              setState(() {
+                                age++;
+                              });
+                            },
+                            icon: FontAwesomeIcons.plus,
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ))
               ],
@@ -136,6 +206,29 @@ class _BmiState extends State<Bmi> {
           )
         ],
       ),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  const RoundIconButton(
+      {super.key, required this.icon, required this.onPressed});
+
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: onPressed,
+      shape: const CircleBorder(),
+      fillColor: const Color(0xff4c4f5e),
+      elevation: 6.0,
+      constraints: const BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      child: Icon(icon),
     );
   }
 }
