@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learn/constant/constant.dart';
+import 'package:flutter_learn/pages/bmi_detail.dart';
+import 'package:flutter_learn/utils/calculator_brain.dart';
 import 'package:flutter_learn/widget/icon_content.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../widget/bottom_button.dart';
 import '../widget/reusable_card.dart';
+import '../widget/round_icon_button.dart';
 
 enum Gender { male, female }
 
@@ -198,37 +202,22 @@ class _BmiState extends State<Bmi> {
               ],
             ),
           ),
-          Container(
-            color: const Color(0xFFFB1555),
-            margin: const EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: bottomContainerHeight,
-          )
+          BottomButton(
+              buttonText: 'CALCULATE',
+              onTap: () {
+                CalculatorBrain cal =
+                    CalculatorBrain(height: height, weight: weight);
+                // "bmi_detail": (context) => const BmiDetail(bmi: '',),
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BmiDetail(
+                            bmi: cal.calculateBMI(),
+                            bmiResult: cal.getResult(),
+                            bmiResultIntro: cal.getResultIntro())));
+              })
         ],
       ),
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  const RoundIconButton(
-      {super.key, required this.icon, required this.onPressed});
-
-  final IconData icon;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: onPressed,
-      shape: const CircleBorder(),
-      fillColor: const Color(0xff4c4f5e),
-      elevation: 6.0,
-      constraints: const BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-      child: Icon(icon),
     );
   }
 }
